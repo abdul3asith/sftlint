@@ -1,0 +1,49 @@
+# Ruff configuration for sftlint
+# Docs: https://docs.astral.sh/ruff/
+
+target-version = "py310"
+line-length = 100
+src = ["src", "tests"]
+
+[lint]
+# Enable a focused set of rules. Add more as the project grows.
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes (unused imports, undefined names)
+    "I",      # isort (import sorting)
+    "B",      # flake8-bugbear (likely bugs)
+    "C4",     # flake8-comprehensions (better list/dict/set comps)
+    "UP",     # pyupgrade (modern Python idioms)
+    "SIM",    # flake8-simplify
+    "RUF",    # ruff-specific rules
+    "N",      # pep8-naming
+    "PTH",    # use pathlib over os.path
+    "TID",    # tidy imports
+    "TCH",    # type-checking imports
+    "ARG",    # unused arguments
+    "PL",     # pylint subset
+]
+
+ignore = [
+    "E501",     # line too long (formatter handles it)
+    "PLR0913",  # too many arguments (we'll allow this in detectors)
+    "PLR2004",  # magic value comparison (too noisy)
+]
+
+[lint.per-file-ignores]
+"tests/**/*.py" = [
+    "PLR2004",  # magic values are fine in tests
+    "S101",     # asserts are fine in tests
+    "ARG",      # unused fixtures
+]
+"__init__.py" = ["F401"]  # re-exports
+
+[lint.isort]
+known-first-party = ["sftlint"]
+combine-as-imports = true
+
+[format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true

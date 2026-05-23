@@ -1,0 +1,87 @@
+[project]
+name = "sftlint"
+version = "0.1.0"
+description = "A linter for SFT (supervised fine-tuning) datasets. Finds broken samples, duplicates, PII leaks, format errors, and benchmark contamination before you waste a training run."
+readme = "README.md"
+authors = [
+    { name = "Abdul Basith", email = "abdulbasith0792@gmail.com" }
+]
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+keywords = [
+    "llm",
+    "fine-tuning",
+    "sft",
+    "dataset",
+    "data-quality",
+    "linter",
+    "machine-learning",
+    "nlp",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Linguistic",
+    "Typing :: Typed",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/abdul3asith/sftlint"
+Repository = "https://github.com/abdul3asith/sftlint"
+Issues = "https://github.com/abdul3asith/sftlint/issues"
+Changelog = "https://github.com/abdul3asith/sftlint/blob/main/CHANGELOG.md"
+
+[project.scripts]
+sftlint = "sftlint.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.11.16,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mypy>=2.1.0",
+    "pytest>=9.0.3",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.15.14",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+]
+# Don't fail if no tests are collected (will remove this once we have tests)
+empty_parameter_set_mark = "skip"
+
+[tool.coverage.run]
+source = ["src/sftlint"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_unused_configs = true
+files = ["src/sftlint"]
